@@ -26,16 +26,13 @@ namespace CodeWars.Kyu5.FindTheSmallest
                     byte tmp = digits[i];
                     digits.Insert(i, digits[solutionIndex]);
                     digits.RemoveRange(solutionIndex + 1, 1);
-                    var swap = solutionIndex - i == 1;
-                    checked
-                    {
-                        result[0] = ToLong(digits);
-                    }
-                    result[1] = swap ? i : solutionIndex;
-                    result[2] = swap ? solutionIndex : i;
+                    result[0] = ToLong(digits);
+                    result[1] = i;
+                    result[2] = solutionIndex;
                     break;
                 }
             }
+            // second case for sequence
             return result;
         }
 
