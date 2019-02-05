@@ -1,6 +1,4 @@
-﻿
-
-namespace CodeWars.Kyu6.BuildTower
+﻿namespace CodeWars.Kyu6.BuildTower
 {
     /// <summary>
     /// https://www.codewars.com/kata/build-tower/

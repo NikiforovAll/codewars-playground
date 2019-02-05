@@ -3,7 +3,7 @@ using CodeWars.Kyu6.BuildTower;
 using NUnit.Framework;
 using System;
 
-namespace Kyu6.Tests
+namespace Kyu6.BuildTowerTests
 {
     namespace Solution
     {
