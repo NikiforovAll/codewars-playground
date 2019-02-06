@@ -17,21 +17,12 @@ namespace CodeWars.Kyu5.FindTheSmallest
                 .ToCharArray()
                 .Select(c => (byte)int.Parse(c.ToString()))
                 .ToList<byte>();
-
             for (var i = 0; i < digits.Count - 1; i++)
             {
                 var solutionIndex1 = FindMinOnInterval(digits, i);
                 var solutionIndex2 = FindMaxShiftOnSequence(digits, i);
-
-                var move1 = (
-                    from: solutionIndex1,
-                    to: i,
-                    isValidMove: solutionIndex1 != i
-                );
-                var move2 = (
-                    from: i,
-                    to: solutionIndex2,
-                    isValidMove: solutionIndex2 != i
+                var move1 = (from: solutionIndex1, to: i, isValidMove: solutionIndex1 != i);
+                var move2 = (from: i, to: solutionIndex2, isValidMove: solutionIndex2 != i
                 );
                 var finalMove = (from: 0, to: 0, isValidMove: false);
                 List<byte> finalSequence = null;
@@ -47,63 +38,63 @@ namespace CodeWars.Kyu5.FindTheSmallest
                         {
                             comp = true;
                             break;
-                        }else if(sequence1[k] > sequence2[k]){
+                        }
+                        else if (sequence1[k] > sequence2[k])
+                        {
                             comp = false;
                             break;
                         }
-                        if(k == sequence1.Count -1){
+                        if (k == sequence1.Count - 1)
+                        {
                             comp = move1.from < move2.from;
                         }
                     }
-                    
-                    finalMove =  comp? move1 : move2;
+                    finalMove = comp ? move1 : move2;
                     finalSequence = comp ? sequence1 : sequence2;
-
                 }
-
                 if (finalMove.isValidMove)
                 {
-                    result[0] = ToLong(finalSequence);
-                    result[1] = finalMove.from;
-                    result[2] = finalMove.to;
-                    break;
+                    var currResult = ToLong(finalSequence);
+                    if (currResult < result[0] || (currResult == result[0] && finalMove.from < result[1]))
+                    {
+                        result[0] = ToLong(finalSequence);
+                        result[1] = finalMove.from;
+                        //backward shift for min j
+                        for(;finalMove.to > 1 && finalSequence[finalMove.to] == finalSequence[finalMove.to - 1];finalMove.to--){}
+                        result[2] = finalMove.to;
+                    }
                 }
             }
             return result;
         }
-
         private static int FindMinOnInterval(List<byte> source, int startIndex)
         {
             var min = source[startIndex];
             var index = startIndex;
             for (var i = startIndex + 1; i < source.Count; i++)
             {
-                if (min == 0)
-                    break;
-                min = source[i] < min ? source[index = i] : min;
+                if (source[i] <= min && source[i - 1] != source[i])
+                {
+                    min = source[i];
+                    index = i;
+                }
             }
             return index;
         }
-
         private static int FindMaxShiftOnSequence(List<byte> source, int startIndex)
         {
             byte baseElement = source[startIndex];
             int index = startIndex;
-            for (; index + 1 != source.Count && source[index + 1] < baseElement; index++)
-            { }
+            //forward shift
+            for (; index + 1 != source.Count && source[index + 1] <= baseElement; index++) { }
             return index;
         }
         private static List<byte> Transform(List<byte> source, int from, int to)
         {
-            var digits = source.Select(d=>d).ToList();
+            var digits = source.Select(d => d).ToList();
             byte tmp = digits[from];
             digits.RemoveAt(from);
-            if(to < from)
-            {
-                digits.Insert(to, tmp);
-            }else{
-                digits.Insert(to, tmp);
-            }
+            digits.Insert(to, tmp);
             return digits;
         }
         private static long ToLong(List<byte> digits)
