@@ -1,4 +1,4 @@
-namespace Kyu5.BestTravel
+namespace Kyu5.SortTheOdd
 {
     using CodeWars.Kyu5.SortTheOdd;
 
