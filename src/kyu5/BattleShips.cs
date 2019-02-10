@@ -57,21 +57,23 @@ namespace CodeWars.Kyu5.BattleShips
                     {
                         ship = new Ship()
                         {
-                            X = (start: j, end: j),
-                            Y = (start: i, end: i),
+                        //     X = (start: j, end: j),
+                        //     Y = (start: i, end: i),
                             BoardSize = (X: sizeX, Y: sizeY)
                         };
+                        
                         result[cell] = ship;
                     }
                     else
                     {
-                        var t = ship.Y;
-                        t.end = i;
-                        ship.Y = t;
-                        var t2 = ship.X;
-                        t2.end = j;
-                        ship.X = t2;
+                        // var t = ship.Y;
+                        // t.end = i;
+                        // ship.Y = t;
+                        // var t2 = ship.X;
+                        // t2.end = j;
+                        // ship.X = t2;
                     }
+                    ship.Parts.Add((j, i));
                 }
             }
 
@@ -81,36 +83,38 @@ namespace CodeWars.Kyu5.BattleShips
         private class Ship
         {
             public (int X, int Y) BoardSize { get; set; }
-            public (int start, int end) X { get; set; }
-            public (int start, int end) Y { get; set; }
-
+            // public (int start, int end) X { get; set; }
+            // public (int start, int end) Y { get; set; }
+            public List<(int x, int y)> Parts{ get; private set; } = new List<(int x, int y)>();
             public double Score(int[,] attacks, out string label)
             {
                 int hits = 0;
-                int shipLength = this.MaxLength();
+                // int shipLength = this.MaxLength();
                 for (int i = 0; i < attacks.GetLength(0); i++)
                 {
                     int attackX = attacks[i, 0] - 1;
                     int attackY = BoardSize.Y - attacks[i, 1];
-                    if (X.start <= attackX && attackX <= X.end &&
-                         Y.start <= attackY && attackY <= Y.end)
-                    {
+                    // if (X.start <= attackX && attackX <= X.end &&
+                    //      Y.start <= attackY && attackY <= Y.end)
+                    // {
+                    //     hits++;
+                    // }
+                    if(Parts.Any(el=> el.y == attackY && el.x == attackX)){
                         hits++;
                     }
-
                 }
                 label = hits > 0 ? 
-                    hits == shipLength ? SUNK_LABEL : DAMAGED_LABEL :
+                    hits == Parts.Count ? SUNK_LABEL : DAMAGED_LABEL :
                     NOT_TOUCHED_LABEL;
                 return Catalog[label];
             }
-
-            private int MaxLength()
-            {
-                int xSize = X.end - X.start + 1;
-                int ySize = Y.end - Y.start + 1;
-                return System.Math.Max(xSize, ySize);
-            }
+            
+            // private int MaxLength()
+            // {
+            //     int xSize = X.end - X.start + 1;
+            //     int ySize = Y.end - Y.start + 1;
+            //     return System.Math.Max(xSize, ySize);
+            // }
         }
     }
 }
