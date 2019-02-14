@@ -53,10 +53,16 @@ namespace Kyu6.ReversePolishNotationCalculator
             Assert.AreEqual(2, calc.evaluate("4 2 /"), 0, "Should support division");
         }
 
-        // [TestCase("+", ExpectedResult = "+", Description = "Test description")]
-        // [TestCase("1+2", ExpectedResult = "12+", Description = "Test description")]
-        // [TestCase("1.0+2", ExpectedResult = "1.02+", Description = "Test description")]
-        // [TestCase("sin(0)", ExpectedResult = "0sin", Description ="Test description")]
+        [Test]
+
+        public void ShouldCalcComplex()
+        {
+            Assert.AreEqual(14, calc.evaluate("5 1 2 + 4 * + 3 -"), 0, "Should calc complex expressions");
+        }
+        [TestCase("+", ExpectedResult = "+", Description = "Test description")]
+        [TestCase("1+2", ExpectedResult = "12+", Description = "Test description")]
+        [TestCase("1.0+2", ExpectedResult = "1.02+", Description = "Test description")]
+        [TestCase("sin(0)", ExpectedResult = "0sin", Description ="Test description")]
         [TestCase("(1+2)*3", ExpectedResult = "12+3*", Description ="Test description")]
 
         public string ToRPNTest(string input)

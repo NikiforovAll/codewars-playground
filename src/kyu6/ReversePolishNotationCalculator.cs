@@ -84,7 +84,7 @@ namespace CodeWars.Kyu6.ReversePolishNotationCalculator
                                     terminate = true;
                                     break;
                             }
-                        } 
+                        }
                         operators.Push(token);
                         break;
                     case TermType.Parenthesis when token.Value == "(":
@@ -112,7 +112,7 @@ namespace CodeWars.Kyu6.ReversePolishNotationCalculator
 
 
 
-        public enum TermType { Operand, Operator, Function, Parenthesis}
+        public enum TermType { Operand, Operator, Function, Parenthesis }
 
         public class Token
         {
@@ -175,7 +175,7 @@ namespace CodeWars.Kyu6.ReversePolishNotationCalculator
                 {
                     char item = this._source[i];
                     sb.Append(item);
-                    if (!IsInGrammar(sb.ToString().Trim(), out _))
+                    if (!IsInGrammar(sb.ToString(), out _))
                     {
                         sb.Remove(sb.Length - 1, 1);
                         break;
@@ -194,7 +194,7 @@ namespace CodeWars.Kyu6.ReversePolishNotationCalculator
 
         private class GrammarCatalog
         {
-            public static Dictionary<string, Func<double, double, double>> BinaryOperators {get;} = new Dictionary<string, Func<double, double, double>>
+            public static Dictionary<string, Func<double, double, double>> BinaryOperators { get; } = new Dictionary<string, Func<double, double, double>>
             {
                 ["+"] = (op1, op2) => op1 + op2,
                 ["-"] = (op1, op2) => op1 - op2,
@@ -202,12 +202,12 @@ namespace CodeWars.Kyu6.ReversePolishNotationCalculator
                 ["/"] = (op1, op2) => op1 / op2,
             };
 
-            public static Dictionary<string, Func<double, double>> UnaryFunctions {get;} = new Dictionary<string, Func<double, double>>
+            public static Dictionary<string, Func<double, double>> UnaryFunctions { get; } = new Dictionary<string, Func<double, double>>
             {
                 ["sin"] = op => Math.Sin(op),
                 ["cos"] = op => Math.Cos(op)
             };
-            public static Dictionary<string, int> PriorityOfOperations {get;} = new Dictionary<string, int>
+            public static Dictionary<string, int> PriorityOfOperations { get; } = new Dictionary<string, int>
             {
                 ["+"] = 10,
                 ["-"] = 11,
@@ -215,9 +215,10 @@ namespace CodeWars.Kyu6.ReversePolishNotationCalculator
                 ["/"] = 101,
             };
 
-            public static HashSet<String> Grammar {get;} = new HashSet<string>{
-            "+", "-", "*", "/", "(", ")", "sin", "cos"
-        };
+            public static HashSet<String> Grammar { get; } = new HashSet<string>
+            {
+                "sin", "cos"
+            };
 
         }
 
@@ -225,11 +226,11 @@ namespace CodeWars.Kyu6.ReversePolishNotationCalculator
         {
             if (String.IsNullOrEmpty(token) || !IsInGrammar(token, out var currentTermType))
             {
-                throw new InvalidOperationException("TokenReader wasn't able to read next token from input");
+                throw new InvalidOperationException($"TokenReader wasn't able to read next token from input: {token}");
             }
             return new Token()
             {
-                Value = token,
+                Value = token.Trim(),
                 TermType = currentTermType,
                 Priority = GrammarCatalog.PriorityOfOperations.ContainsKey(token) ? GrammarCatalog.PriorityOfOperations[token] : 1
             };
@@ -238,7 +239,7 @@ namespace CodeWars.Kyu6.ReversePolishNotationCalculator
         {
             bool result = false;
             type = TermType.Operand;
-            switch (token)
+            switch (token.Trim())
             {
                 case string s when IsDouble(token, out var _) && GrammarCatalog.BinaryOperators.Keys.Any(op => !token.StartsWith(op)):
                     type = TermType.Operand;
@@ -248,7 +249,7 @@ namespace CodeWars.Kyu6.ReversePolishNotationCalculator
                     type = TermType.Operator;
                     result = true;
                     break;
-                case string s when new string[]{"(", ")"}.Contains(s):
+                case string s when new string[] { "(", ")" }.Contains(s):
                     type = TermType.Parenthesis;
                     result = true;
                     break;
@@ -262,7 +263,7 @@ namespace CodeWars.Kyu6.ReversePolishNotationCalculator
 
         private static bool IsDouble(string token, out double value)
         {
-            NumberStyles numberStyles = 
+            NumberStyles numberStyles =
                 NumberStyles.AllowDecimalPoint |
                 NumberStyles.AllowLeadingWhite |
                 NumberStyles.AllowTrailingWhite;
