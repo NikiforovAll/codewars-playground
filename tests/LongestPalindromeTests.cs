@@ -1,4 +1,4 @@
-namespace ky6
+namespace Kyu6
 {
     using CodeWars.Kyu6.LongestPalindrome;
 
