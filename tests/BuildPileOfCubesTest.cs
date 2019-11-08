@@ -1,5 +1,6 @@
 using System;
 using NUnit.Framework;
+using CodeWars.Kyu6.BuildPileOfCubes;
 
 [TestFixture]
 public class ASumTests {
