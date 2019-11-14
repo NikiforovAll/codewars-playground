@@ -1,6 +1,6 @@
 using CodeWars.Kyu4.SumStringsAsNumbers;
 
-namespace Kyu6.SumStringsAsNumbers {
+namespace Kyu4.SumStringsAsNumbers {
     using System;
     using NUnit.Framework;
 
