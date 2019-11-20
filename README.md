@@ -4,8 +4,9 @@
 
 Kyu | Kata |  Solution
 --- | --- | ---
-Kyu4 | [Snail](https://www.codewars.com/kata/snail/) | [Snail.cs](https://github.com/NikiforovAll/codewars-playground/blob/master/src/Kyu4/Snail.cs)
+Kyu4 | [Snail](https://www.codewars.com/kata/snail/) | [Snail.cs](https://github.com/NikiforovAll/codewars-playground/blob/master/src/kyu4/Snail.cs)
 Kyu4| [SumStringsAsNumbers](https://www.codewars.com/kata/sum-strings-as-numbers/) | [SumStringsAsNumbers.cs](https://github.com/NikiforovAll/codewars-playground/blob/master/src/kyu4/SumStringsAsNumbers.cs)
+kyu5 | [FactorialDecomposition](https://www.codewars.com/kata/factorial-decomposition/) | [FactorialDecomposition.cs](https://github.com/NikiforovAll/codewars-playground/blob/master/src/kyu5/FactorialDecomposition.cs)
 Kyu5| [BattleShips](https://www.codewars.com/kata/battle-ships-sunk-damaged-or-not-touched/) | [BattleShips.cs](https://github.com/NikiforovAll/codewars-playground/blob/master/src/kyu5/BattleShips.cs)
 Kyu5 | [BestTravel](https://www.codewars.com/kata/best-travel/) | [BestTravel.cs](https://github.com/NikiforovAll/codewars-playground/blob/master/src/kyu5/BestTravel.cs)
 Kyu5 | [FindTheSmallest](https://www.codewars.com/kata/find-the-smallest) | [FindTheSmallest.cs](https://github.com/NikiforovAll/codewars-playground/blob/master/src/kyu5/FindTheSmallest.cs)
