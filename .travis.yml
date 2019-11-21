@@ -1,0 +1,12 @@
+os:
+  - linux
+language: csharp
+solution: CodeWarsCSharp.sln
+mono: none
+dotnet: 3.0
+install:
+  - dotnet restore
+
+script:
+- dotnet build
+- dotnet test tests/CodeWarsTests.csproj
