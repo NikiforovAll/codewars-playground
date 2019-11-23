@@ -4,6 +4,7 @@
 
 Kyu | Kata |  Solution
 --- | --- | ---
+Kyu4 | [StringsMix](https://www.codewars.com/kata/strings-mix/) | [StringsMix.cs](https://github.com/NikiforovAll/codewars-playground/blob/master/src/kyu4/StringsMix.cs)
 Kyu4 | [Snail](https://www.codewars.com/kata/snail/) | [Snail.cs](https://github.com/NikiforovAll/codewars-playground/blob/master/src/kyu4/Snail.cs)
 Kyu4| [SumStringsAsNumbers](https://www.codewars.com/kata/sum-strings-as-numbers/) | [SumStringsAsNumbers.cs](https://github.com/NikiforovAll/codewars-playground/blob/master/src/kyu4/SumStringsAsNumbers.cs)
 kyu5 | [FactorialDecomposition](https://www.codewars.com/kata/factorial-decomposition/) | [FactorialDecomposition.cs](https://github.com/NikiforovAll/codewars-playground/blob/master/src/kyu5/FactorialDecomposition.cs)
