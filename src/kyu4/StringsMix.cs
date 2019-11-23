@@ -53,8 +53,7 @@ namespace CodeWars.Kyu4.StringsMix {
                 if (this.Count != other.Count) {
                     return this.Count.CompareTo (other.Count);
                 }
-                //TODO: ERROR IS HERE
-                return this.Id.CompareTo (other.Id);
+                return this.ToString().CompareTo(other.ToString())*(-1);
             }
 
             public void DiscardTokenParent() {
