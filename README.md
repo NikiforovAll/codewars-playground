@@ -1,4 +1,4 @@
-# CodeWars playground  [![Build Status](https://travis-ci.com/NikiforovAll/codewars-playground.svg?branch=master)](https://travis-ci.com/NikiforovAll/codewars-playground)
+# CodeWars playground  [![Build Status](https://travis-ci.com/NikiforovAll/codewars-playground.svg?branch=master)](https://travis-ci.com/NikiforovAll/codewars-playground) [![codecov](https://codecov.io/gh/NikiforovAll/codewars-playground/branch/master/graph/badge.svg)](https://codecov.io/gh/NikiforovAll/codewars-playground)
 
 [![CodeWars Badge](https://www.codewars.com/users/NikiforovAll/badges/large)](https://www.codewars.com/users/NikiforovAll/badges)
 
@@ -7,6 +7,7 @@ Kyu | Kata |  Solution
 Kyu4 | [StringsMix](https://www.codewars.com/kata/strings-mix/) | [StringsMix.cs](https://github.com/NikiforovAll/codewars-playground/blob/master/src/kyu4/StringsMix.cs)
 Kyu4 | [Snail](https://www.codewars.com/kata/snail/) | [Snail.cs](https://github.com/NikiforovAll/codewars-playground/blob/master/src/kyu4/Snail.cs)
 Kyu4| [SumStringsAsNumbers](https://www.codewars.com/kata/sum-strings-as-numbers/) | [SumStringsAsNumbers.cs](https://github.com/NikiforovAll/codewars-playground/blob/master/src/kyu4/SumStringsAsNumbers.cs)
+kyu5 | [DomainNameValidator](https://www.codewars.com/kata/domain-name-validator/) | [DomainNameValidator.cs](https://github.com/NikiforovAll/codewars-playground/blob/master/src/kyu5/DomainNameValidator.cs)
 kyu5 | [FactorialDecomposition](https://www.codewars.com/kata/factorial-decomposition/) | [FactorialDecomposition.cs](https://github.com/NikiforovAll/codewars-playground/blob/master/src/kyu5/FactorialDecomposition.cs)
 Kyu5| [BattleShips](https://www.codewars.com/kata/battle-ships-sunk-damaged-or-not-touched/) | [BattleShips.cs](https://github.com/NikiforovAll/codewars-playground/blob/master/src/kyu5/BattleShips.cs)
 Kyu5 | [BestTravel](https://www.codewars.com/kata/best-travel/) | [BestTravel.cs](https://github.com/NikiforovAll/codewars-playground/blob/master/src/kyu5/BestTravel.cs)
@@ -21,3 +22,9 @@ Kyu6 | [LongestPalindrome](https://www.codewars.com/kata/longest-palindrome/) | 
 Kyu6 | [ReversePolishNotationCalculator](https://www.codewars.com/kata/reverse-polish-notation-calculator/) | [ReversePolishNotationCalculator.cs](https://github.com/NikiforovAll/codewars-playground/blob/master/src/kyu6/ReversePolishNotationCalculator.cs)
 Kyu6 | [SupermarketQueue](https://www.codewars.com/kata/the-supermarket-queue/) | [SupermarketQueue.cs](https://github.com/NikiforovAll/codewars-playground/blob/master/src/kyu6/SupermarketQueue.cs)
 Kyu7 | [FizzBuzz](https://www.codewars.com/kata/fizz-buzz) | [FizzBuzz.cs](https://github.com/NikiforovAll/codewars-playground/blob/master/src/kyu7/FizzBuzz.cs)
+
+## Highlights
+
+Kata |  Solution
+ --- | ---
+List partitioning based on pivot element | [ListPartition.cs]()

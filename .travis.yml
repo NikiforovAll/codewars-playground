@@ -3,10 +3,11 @@ os:
 language: csharp
 solution: CodeWarsCSharp.sln
 mono: none
-dotnet: 3.0
+dotnet: 3.1
 install:
+  - npm install -g codecov
   - dotnet restore
-
 script:
 - dotnet build
 - dotnet test tests/CodeWarsTests.csproj
+- codecov -f "./tests/lcov.info" -t fc3187a1-606f-4b8a-8ba3-b4cb1670d86e
