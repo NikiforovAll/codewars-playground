@@ -9,5 +9,5 @@ install:
   - dotnet restore
 script:
 - dotnet build
-- dotnet test tests/CodeWarsTests.csproj
+- dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=lcov /p:CoverletOutput=./lcov ./tests
 - codecov -f "./tests/lcov.info" -t fc3187a1-606f-4b8a-8ba3-b4cb1670d86e
