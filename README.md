@@ -23,8 +23,8 @@ Kyu6 | [ReversePolishNotationCalculator](https://www.codewars.com/kata/reverse-p
 Kyu6 | [SupermarketQueue](https://www.codewars.com/kata/the-supermarket-queue/) | [SupermarketQueue.cs](https://github.com/NikiforovAll/codewars-playground/blob/master/src/kyu6/SupermarketQueue.cs)
 Kyu7 | [FizzBuzz](https://www.codewars.com/kata/fizz-buzz) | [FizzBuzz.cs](https://github.com/NikiforovAll/codewars-playground/blob/master/src/kyu7/FizzBuzz.cs)
 
-## Highlights
+## MISC
 
-Kata |  Solution
- --- | ---
-List partitioning based on pivot element | [ListPartition.cs]()
+Kata | Description |  Solution
+--- | --- | ---
+`docs/ListPartition.kata`|List partitioning based on pivot element | [ListPartition.cs](https://github.com/NikiforovAll/codewars-playground/blob/master/src/misc/ListPartition.cs)

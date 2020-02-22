@@ -20,6 +20,7 @@
     <ProjectReference Include="..\src\kyu6\kyu6.csproj" />
     <ProjectReference Include="..\src\kyu5\kyu5.csproj" />
     <ProjectReference Include="..\src\kyu4\kyu4.csproj" />
+    <ProjectReference Include="..\src\misc\misc.csproj" />
   </ItemGroup>
 
 </Project>
