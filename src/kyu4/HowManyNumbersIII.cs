@@ -13,38 +13,35 @@ namespace CodeWars.Kyu4.HowManyNumbersIII
         public static List<long> FindAll(int sumDigits, int numDigits)
         {
             var res = FindAllInternal(sumDigits, numDigits, 1, out var isFound).ToList();
-            // .Where(num => num.ToString().Length == numDigits);
             return isFound
-                ? new List<long>() { res.Count, res.First(), res.Last() }
+                ? new List<long>() { res.Count , long.Parse(res.First()), long.Parse(res.Last()) }
                 : new List<long>() { };
         }
 
-        public static IEnumerable<long> FindAllInternal(
+        public static IEnumerable<string> FindAllInternal(
             int sumDigits, int numDigits, int currentMaxDigit, out bool isFound)
         {
             isFound = false;
             if (sumDigits < 0 || numDigits < 1)
             {
-                return new List<long>();
+                return new List<string>();
             }
-            long multiplier = GetMultiplierOfTen(numDigits - 1);
             var nextNumDigits = numDigits - 1;
             var res = Enumerable.Range(currentMaxDigit, 10 - currentMaxDigit)
+                .Where(d => sumDigits <= nextNumDigits * 9 + d)
                 .Select(d => (d, sums: FindAllInternal(sumDigits - d, nextNumDigits, d, out var found),
-                    found: found || d == sumDigits))
-                .Where(solution => solution.found
-                    && sumDigits <= nextNumDigits * 9 + solution.d
-                    && sumDigits >= nextNumDigits * currentMaxDigit)
+                    found: found || (d == sumDigits && numDigits == 1)))
+                .Where(solution => solution.found)
                 .SelectMany(el => numDigits != 1
-                    ? el.sums.Select(sum => sum + el.d * multiplier)
-                    : new long[1] { el.d });
+                    ? el.sums.Select(sum => el.d.ToString() + sum )
+                    : new string[] { el.d.ToString() });
             isFound = res.Any();
             return res;
         }
-
-        public static long GetMultiplierOfTen(int num) =>
-            Enumerable.Repeat(10, num).Aggregate(1, (acc, el) => acc * el);
     }
+    //   public static long GetMultiplierOfTen(int num) =>
+    //      Enumerable.Repeat(10, num).Aggregate(1, (acc, el) => acc * el);
+    
     // public static bool IsAscendingNumber(long num) {
     //     var digits = num.ToString()
     //         .AsEnumerable()
