@@ -4,6 +4,7 @@
 
 Kyu | Kata |  Solution
 --- | --- | ---
+Kyu4 | [Permutations](https://www.codewars.com/kata/permutations) | [Permutation.cs](https://github.com/NikiforovAll/codewars-playground/blob/master/src/kyu4/Permutation.cs)
 Kyu4 | [RangeExtraction](https://www.codewars.com/kata/range-extraction) | [RangeExtraction.cs](https://github.com/NikiforovAll/codewars-playground/blob/master/src/kyu4/RangeExtraction.cs)
 Kyu4 | [HowManyNumbersIII](https://www.codewars.com/kata/how-many-numbers-iii/) | [HowManyNumbersIII.cs](https://github.com/NikiforovAll/codewars-playground/blob/master/src/kyu4/HowManyNumbersIII.cs)
 Kyu4 | [StringsMix](https://www.codewars.com/kata/strings-mix/) | [StringsMix.cs](https://github.com/NikiforovAll/codewars-playground/blob/master/src/kyu4/StringsMix.cs)
