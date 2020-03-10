@@ -17,23 +17,28 @@ namespace CodeWars.Kyu4.RankingPokerHands
 
     public static class GameRules
     {
-        private static readonly int NOT_MATCHED_COMBINATION = -1;
+        public static readonly int NOT_MATCHED_COMBINATION = -1;
 
         private static readonly Combination Royal = (cardList) =>
             cardList.Min(GetCardScore) == 100 && cardList.Max(GetCardScore) == 60;
         private static readonly Combination Straight = (cardList) =>
         {
-            var scores = cardList
-            .Select(GetCardScore)
-            .OrderBy(i => i).ToList();
+            var scores = cardList.Select(GetCardScore).OrderBy(i => i).ToList();
             for (int i = 1; i < scores.Count; i++)
             {
-                // TODO: handle circular ACE situation
-                if (scores[i] - scores[i - 1] != 10)
+                if (scores[i] - scores[i - 1] != 10
+                    && !(i == scores.Count - 1 && scores[^1] == 140 && scores[0] == 20))
                     return false;
             }
             return true;
         };
+
+        public static readonly Combination ShatteredStraight = (cardList) =>
+        {
+            var scores = cardList.Select(GetCardScore).OrderBy(i => i).ToList();
+            return Straight(cardList) && scores[^1] == 140 && scores[0] == 20;
+        };
+
         private static readonly Combination Three = (cardList) =>
             cardList.GroupBy((c) => c.value).Any(group => group.Count() == 3);
         private static readonly ParamCombination Pair = (cardList, num) =>
@@ -65,7 +70,7 @@ namespace CodeWars.Kyu4.RankingPokerHands
                 ? 200 : NOT_MATCHED_COMBINATION,
             // Straight Flush
             cl => Straight(cl) && Flush(cl)
-                ? 180 + GetHandDiscriminatorScrore(cl, 0) : NOT_MATCHED_COMBINATION,
+                ? 180 + GetHandDiscriminatorScrore(cl, -1) : NOT_MATCHED_COMBINATION,
             // Four of Kind
             cl =>  cl.GroupBy((c) => c.value).Select(group => group.Count()).Max() == 4
                 ? 160 + GetHandDiscriminatorScrore(cl, 4)
@@ -113,10 +118,12 @@ namespace CodeWars.Kyu4.RankingPokerHands
     public class PokerHand : IComparable<PokerHand>
     {
 
-        private readonly CardList _hand;
+        public readonly CardList Hand;
+
+        private int _handScore = -1;
         public PokerHand(string hand)
         {
-            _hand = hand.Split(' ', StringSplitOptions.RemoveEmptyEntries)
+            Hand = hand.Split(' ', StringSplitOptions.RemoveEmptyEntries)
                 .Select(s => (s[0].ToString(), s[1].ToString()))
                 .ToList();
         }
@@ -140,27 +147,53 @@ namespace CodeWars.Kyu4.RankingPokerHands
             var result = this.GetHandScore() - other.GetHandScore();
             if (result == 0)
             {
-                result = this.GetScoreSequence()
-                    .Zip(other.GetScoreSequence(), (s1, s2) => s1 - s2)
-                    .SkipWhile(s => s == 0).FirstOrDefault();
+                bool sh1 = GameRules.ShatteredStraight(this.Hand);
+                bool sh2 = GameRules.ShatteredStraight(other.Hand);
+                if (sh1 || sh2)
+                {
+                    if (!sh1 && sh2)
+                    {
+                        result = 1;
+                    }
+                    else if (sh1 && !sh2)
+                    {
+                        result = -1;
+                    }
+                    else
+                    {
+                        result = 0;
+                    }
+                }
+                else
+                {
+                    result = this.GetScoreSequence()
+                        .Zip(other.GetScoreSequence(),
+                            (s1, s2) => (s1 - s2))
+                        .SkipWhile(s => s == 0).FirstOrDefault();
+                }
             }
             return result * -1;
         }
 
         public int GetHandScore()
         {
-            CardList hand = this._hand;
-            var combination = GameRules.Rules.First(gr => gr(hand) > 0);
-            return combination(hand);
+            if (_handScore == -1)
+            {
+                CardList hand = this.Hand;
+                var combination = GameRules.Rules.First(gr => gr(hand) != GameRules.NOT_MATCHED_COMBINATION);
+                _handScore = combination(hand);
+            }
+            return _handScore;
         }
 
         public IEnumerable<int> GetScoreSequence()
         {
-            return this._hand.Select(GameRules.GetCardScore).OrderByDescending(i => i);
+            return this.Hand.Select(GameRules.GetCardScore).OrderByDescending(i => i);
         }
 
-        public override string ToString(){
-            return string.Join(' ', _hand);
+        public override string ToString()
+        {
+            return string.Join(' ', Hand);
         }
     }
 

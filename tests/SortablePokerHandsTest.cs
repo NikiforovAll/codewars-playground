@@ -34,8 +34,8 @@ namespace CodeWars.Kyu4.RankingPokerHands
             // Act
             actual.Sort();
             // Assert
-            // for (var i = 0; i < expected.Count; i++)
-                // Assert.AreEqual(expected[i], actual[i], "Unexpected sorting order at index {0}", i);
+            for (var i = 0; i < expected.Count; i++)
+                Assert.AreEqual(expected[i], actual[i], "Unexpected sorting order at index {0}", i);
         }
     }
 }
