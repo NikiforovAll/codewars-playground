@@ -59,6 +59,7 @@ namespace Kyu6.ReversePolishNotationCalculator
         {
             Assert.AreEqual(14, calc.evaluate("5 1 2 + 4 * + 3 -"), 0, "Should calc complex expressions");
         }
+
         [TestCase("+", ExpectedResult = "+", Description = "Test description")]
         [TestCase("1+2", ExpectedResult = "12+", Description = "Test description")]
         [TestCase("1.0+2", ExpectedResult = "1.02+", Description = "Test description")]
@@ -68,6 +69,18 @@ namespace Kyu6.ReversePolishNotationCalculator
         public string ToRPNTest(string input)
         {
             return calc.ToRPN(input).Select(t => t.Value).Aggregate((current, next) => $"{current}{next}");
+        }
+
+
+        [TestCase("123.45*(678.90 / (-2.5+ 11.5)-(80 -19) *33.25) / 20 + 11", ExpectedResult = -12042.760875d)]
+        [TestCase("(1 - 2) + -(-(-(-4)))", ExpectedResult = 3, Description = "Test description")]
+        [TestCase("-(-1)", ExpectedResult = 1, Description = "Test description")]
+        [TestCase("12* 123/(-5 + 2)", ExpectedResult = -492, Description = "Test description")]
+        [TestCase("1 - 1", ExpectedResult = 0, Description = "Test description")]
+        [TestCase("12*-1", ExpectedResult = -12.0d, Description = "Test description")]
+        public double CalculateInfixTest(string input)
+        {
+            return calc.evaluate(input, infix: true);
         }
     }
 

@@ -35,6 +35,12 @@ namespace CodeWars.Kyu6.ReversePolishNotationCalculator
                         IsDouble(currToken.Value, out var tokenValue);
                         evaluateStack.Push(tokenValue);
                         break;
+                    case TermType.Function:
+                        var op = evaluateStack.Pop();
+                        evaluateStack.Push(
+                            GrammarCatalog.UnaryFunctions[currToken.Value](op)
+                        );
+                        break;
                 }
             }
             return evaluateStack.Pop();
@@ -152,6 +158,8 @@ namespace CodeWars.Kyu6.ReversePolishNotationCalculator
             private int _pointer;
             public Token Current => this._current;
             private object Current1 => this.Current;
+
+            private TermType previousTokenTermType = TermType.Operand;
             object IEnumerator.Current => this.Current1;
 
             public TokenReaderEnumerator(string source)
@@ -171,18 +179,33 @@ namespace CodeWars.Kyu6.ReversePolishNotationCalculator
                 }
                 StringBuilder sb = new StringBuilder(_source.Length);
                 int i = _pointer;
+                var skipOperators = false;
                 for (; i < this._source.Length; i++)
                 {
                     char item = this._source[i];
                     sb.Append(item);
-                    if (!IsInGrammar(sb.ToString(), out _))
+                    var isTokenInGrammar = IsInGrammar(sb.ToString(), out var termType);
+                    if (sb.ToString().StartsWith("-("))
+                    {
+                        sb.Remove(sb.Length - 1, 1);
+                        skipOperators = true;
+                        break;
+                    }
+                    else if (!isTokenInGrammar)
                     {
                         sb.Remove(sb.Length - 1, 1);
                         break;
                     }
+                    else if ((previousTokenTermType == TermType.Operand) && sb.ToString().StartsWith('-'))
+                    {
+                        // sb.Remove(sb.Length - 1, 1);
+                        i++;
+                        break;
+                    }
                 }
                 _pointer = i;
-                _current = CreateTokenFactoryMethod(sb.ToString());
+                _current = CreateTokenFactoryMethod(sb.ToString(), skipOperators);
+                IsInGrammar(sb.ToString(), out previousTokenTermType, skipOperators);
                 return true;
             }
 
@@ -205,26 +228,27 @@ namespace CodeWars.Kyu6.ReversePolishNotationCalculator
             public static Dictionary<string, Func<double, double>> UnaryFunctions { get; } = new Dictionary<string, Func<double, double>>
             {
                 ["sin"] = op => Math.Sin(op),
-                ["cos"] = op => Math.Cos(op)
+                ["cos"] = op => Math.Cos(op),
+                ["-"] = op => -op
             };
             public static Dictionary<string, int> PriorityOfOperations { get; } = new Dictionary<string, int>
             {
                 ["+"] = 10,
                 ["-"] = 11,
-                ["*"] = 100,
+                ["*"] = 101,
                 ["/"] = 101,
             };
 
-            public static HashSet<String> Grammar { get; } = new HashSet<string>
+            public static HashSet<string> Grammar { get; } = new HashSet<string>
             {
-                "sin", "cos"
+                "sin", "cos", "-"
             };
 
         }
 
-        private static Token CreateTokenFactoryMethod(string token)
+        private static Token CreateTokenFactoryMethod(string token, bool skipOperators = false)
         {
-            if (String.IsNullOrEmpty(token) || !IsInGrammar(token, out var currentTermType))
+            if (String.IsNullOrEmpty(token) || !IsInGrammar(token, out var currentTermType, skipOperators))
             {
                 throw new InvalidOperationException($"TokenReader wasn't able to read next token from input: {token}");
             }
@@ -235,17 +259,17 @@ namespace CodeWars.Kyu6.ReversePolishNotationCalculator
                 Priority = GrammarCatalog.PriorityOfOperations.ContainsKey(token) ? GrammarCatalog.PriorityOfOperations[token] : 1
             };
         }
-        private static bool IsInGrammar(string token, out TermType type)
+        private static bool IsInGrammar(string token, out TermType type, bool skipOperators = false)
         {
             bool result = false;
             type = TermType.Operand;
             switch (token.Trim())
             {
-                case string s when IsDouble(token, out var _) && GrammarCatalog.BinaryOperators.Keys.Any(op => !token.StartsWith(op)):
+                case string s when IsDouble(token, out var _) && !token.StartsWith('+'):
                     type = TermType.Operand;
                     result = true;
                     break;
-                case string s when GrammarCatalog.BinaryOperators.ContainsKey(token):
+                case string s when GrammarCatalog.BinaryOperators.ContainsKey(token) && !skipOperators:
                     type = TermType.Operator;
                     result = true;
                     break;
@@ -263,10 +287,11 @@ namespace CodeWars.Kyu6.ReversePolishNotationCalculator
 
         private static bool IsDouble(string token, out double value)
         {
-            NumberStyles numberStyles =
-                NumberStyles.AllowDecimalPoint |
-                NumberStyles.AllowLeadingWhite |
-                NumberStyles.AllowTrailingWhite;
+            // NumberStyles numberStyles =
+            //     NumberStyles.AllowDecimalPoint |
+            //     NumberStyles.AllowLeadingWhite |
+            //     NumberStyles.AllowTrailingWhite;
+            NumberStyles numberStyles = NumberStyles.Float;
             return double.TryParse(
                 token.EndsWith(".") ? token + "0" : token, numberStyles,
                 CultureInfo.InvariantCulture,
@@ -274,5 +299,4 @@ namespace CodeWars.Kyu6.ReversePolishNotationCalculator
             );
         }
     }
-
 }

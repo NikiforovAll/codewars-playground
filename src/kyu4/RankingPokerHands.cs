@@ -19,6 +19,23 @@ namespace CodeWars.Kyu4.RankingPokerHands
     {
         public static readonly int NOT_MATCHED_COMBINATION = -1;
 
+        private static readonly Dictionary<string, int> Cards = new Dictionary<string, int>
+        {
+            ["A"] = 140,
+            ["K"] = 130,
+            ["Q"] = 120,
+            ["J"] = 110,
+            ["T"] = 100,
+            ["9"] = 90,
+            ["8"] = 80,
+            ["7"] = 70,
+            ["6"] = 60,
+            ["5"] = 50,
+            ["4"] = 40,
+            ["3"] = 30,
+            ["2"] = 20,
+        };
+
         private static readonly Combination Royal = (cardList) =>
             cardList.Min(GetCardScore) == 100 && cardList.Max(GetCardScore) == 60;
         private static readonly Combination Straight = (cardList) =>
@@ -96,24 +113,27 @@ namespace CodeWars.Kyu4.RankingPokerHands
             // High Card
             cl => GetHandDiscriminatorScrore(cl, 0)
         };
-        public static int GetCardScore((string value, string suit) card) =>
-            card switch
-            {
-                ("A", _) => 140,
-                ("K", _) => 130,
-                ("Q", _) => 120,
-                ("J", _) => 110,
-                ("T", _) => 100,
-                ("9", _) => 90,
-                ("8", _) => 80,
-                ("7", _) => 70,
-                ("6", _) => 60,
-                ("5", _) => 50,
-                ("4", _) => 40,
-                ("3", _) => 30,
-                ("2", _) => 20,
-                _ => throw new ArgumentException("Card was not recognized"),
-            };
+        public static int GetCardScore((string value, string suit) card)
+        {
+            return Cards[card.value];
+        }
+        // card switch
+        // {
+        //     ("A", _) => 140,
+        //     ("K", _) => 130,
+        //     ("Q", _) => 120,
+        //     ("J", _) => 110,
+        //     ("T", _) => 100,
+        //     ("9", _) => 90,
+        //     ("8", _) => 80,
+        //     ("7", _) => 70,
+        //     ("6", _) => 60,
+        //     ("5", _) => 50,
+        //     ("4", _) => 40,
+        //     ("3", _) => 30,
+        //     ("2", _) => 20,
+        //     _ => throw new ArgumentException("Card was not recognized"),
+        // };
     }
     public class PokerHand : IComparable<PokerHand>
     {
