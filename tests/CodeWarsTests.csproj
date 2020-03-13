@@ -21,6 +21,7 @@
     <ProjectReference Include="..\src\kyu5\kyu5.csproj" />
     <ProjectReference Include="..\src\kyu4\kyu4.csproj" />
     <ProjectReference Include="..\src\misc\misc.csproj" />
+    <ProjectReference Include="..\src\kyu3\kyu3.csproj" />
   </ItemGroup>
 
 </Project>

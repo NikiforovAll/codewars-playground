@@ -4,6 +4,7 @@
 
 Kyu | Kata |  Solution
 --- | --- | ---
+Kyu3 | [BinomialExpansion](https://www.codewars.com/kata/binomial-expansion/train/csharp) | [BinomialExpansion.cs](https://github.com/NikiforovAll/codewars-playground/blob/master/src/kyu3/BinomialExpansion.cs)
 Kyu4 | [RankingPokerHands](https://www.codewars.com/kata/ranking-poker-hands) | [RankingPokerHands.cs](https://github.com/NikiforovAll/codewars-playground/blob/master/src/kyu4/RankingPokerHands.cs)
 Kyu4 | [SortablePokerHands](https://www.codewars.com/kata/sortable-poker-hands) | [SortablePokerHands.cs](https://github.com/NikiforovAll/codewars-playground/blob/master/tests/SortablePokerHandsTest.cs)
 Kyu4 | [PyramidSlideDown](https://www.codewars.com/kata/pyramid-slide-down) | [PyramidSlideDown.cs](https://github.com/NikiforovAll/codewars-playground/blob/master/src/kyu4/PyramidSlideDown.cs)
