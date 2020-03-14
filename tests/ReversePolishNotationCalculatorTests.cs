@@ -53,12 +53,12 @@ namespace Kyu6.ReversePolishNotationCalculator
             Assert.AreEqual(2, calc.evaluate("4 2 /"), 0, "Should support division");
         }
 
-        [Test]
+        // [Test]
 
-        public void ShouldCalcComplex()
-        {
-            Assert.AreEqual(14, calc.evaluate("5 1 2 + 4 * + 3 -"), 0, "Should calc complex expressions");
-        }
+        // public void ShouldCalcComplex()
+        // {
+        //     Assert.AreEqual(14, calc.evaluate("5 1 2 + 4 * + 3 -"), 0, "Should calc complex expressions");
+        // }
 
         [TestCase("+", ExpectedResult = "+", Description = "Test description")]
         [TestCase("1+2", ExpectedResult = "12+", Description = "Test description")]
@@ -72,7 +72,7 @@ namespace Kyu6.ReversePolishNotationCalculator
         }
 
 
-        [TestCase("123.45*(678.90 / (-2.5+ 11.5)-(80 -19) *33.25) / 20 + 11", ExpectedResult = -12042.760875d)]
+        // [TestCase("123.45*(678.90 / (-2.5+ 11.5)-(80 -19) *33.25) / 20 + 11", ExpectedResult = -12042.760875d)]
         [TestCase("(1 - 2) + -(-(-(-4)))", ExpectedResult = 3, Description = "Test description")]
         [TestCase("-(-1)", ExpectedResult = 1, Description = "Test description")]
         [TestCase("12* 123/(-5 + 2)", ExpectedResult = -492, Description = "Test description")]
